@@ -1,7 +1,7 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
-use tokio::time::{Duration};
+use tokio::time::Duration;
 
 #[derive(Debug)]
 struct Task {
@@ -51,7 +51,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .app_data(task_map.clone())
+            .app_data(web::Data::new(task_map.clone()))
             .service(create_task)
             .service(get_task_status)
     })
